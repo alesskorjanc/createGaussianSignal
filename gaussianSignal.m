@@ -4,6 +4,7 @@ function [signal,time,mag,freq,typein]=gaussianSignal(typein,magin,freqin,durati
 % 
 % Function returns a time-domain (TD) signal with user-defined spectral
 % properties, using inverse fast Fourier transform (ifft).
+% Created by Ales Skorjanc 18.2.2022
 %
 %% Inputs:
 % 
