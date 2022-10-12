@@ -1,4 +1,4 @@
-function [signalOut, timeOut, magOut, freqOut,typeIn] = gaussianSignal(typeIn, magIn, freqIn, duration, fs)
+function [signalOut, timeOut, magOut, freqOut, typeIn] = gaussianSignal(typeIn, magIn, freqIn, duration, fs)
 
 % [signalOut, timeOut, magOut, freqOut, typeIn] = gaussianSignal(typeIn, magIn, freqIn, duration, fs)
 %
