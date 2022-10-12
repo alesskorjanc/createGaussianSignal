@@ -1,9 +1,9 @@
-function plotGaussianSignal(signal,time,mag,freq,typeIn)
+function plotGaussianSignal(signal, time, mag, freq, typeIn)
 
-% plotGaussianSignal(signal,time,mag,freq,typein)
+% plotGaussianSignal(signal, time, mag, freq, typein)
 %
 % Functions draws a time-domain (TD) signal generated with function
-% gaussianSignal,and a frequency spectrum of the signal defined by the user
+% gaussianSignal, and a frequency spectrum of the signal defined by the user
 % as the gaussianSignal input. It also calculates back the frequency
 % spectrum from the output TD signal using Welch's estimator, and draws it
 % for comparison.
@@ -48,7 +48,7 @@ noverlap=0; % averaging window overlap
 
 % estimate psd of the signal using Welch's estimator, where sampling
 % frequency equals 2*fN
-[psd,psdf] = pwelch(signal,averagingWindow,noverlap,fftWindow,2*fN); 
+[psd, psdf] = pwelch(signal, averagingWindow, noverlap,fftWindow, 2*fN); 
 
 %% recalculate frequency spectrum amplitude from psd and reverse normalization
 
@@ -58,9 +58,9 @@ noverlap=0; % averaging window overlap
 % gaussianSignal was defined as psd, only reverse the normalization of the
 % signal variance to 1.
 
-if strcmp(typeIn,'amplitude')
+if strcmp(typeIn, 'amplitude')
     magIn = sqrt(psd*sum(mag.^2)*df);  
-elseif strcmp(typeIn,'power')
+elseif strcmp(typeIn, 'power')
     magIn = psd*(sum(mag)*df);
 end;
 
@@ -70,20 +70,20 @@ end;
 figure;
 
 % Plot TD signal
-subplot(4,1,1);
-plot(time,signal);
+subplot(4, 1, 1);
+plot(time, signal);
 title('Normalized output signal in time domain')
 xlabel('time [s]')
 ylabel('amplitude')
 
 % Plot user defined frequency spectrum, used as input for gaussianSignal 
-subplot(4,1,2);
-plot(freq,mag);
+subplot(4, 1, 2);
+plot(freq, mag);
 
-if strcmp(typeIn,'amplitude')
+if strcmp(typeIn, 'amplitude')
    title('User defined input amplitude spectrum')
    ylabel('asd')
-elseif strcmp(typeIn,'power')
+elseif strcmp(typeIn, 'power')
     title('User defined input power spectrum')
     ylabel('psd')
 end;
@@ -94,13 +94,13 @@ xlabel('frequency [Hz]')
 % Plot the amplitude or power spectrum of the TD signal, estimated with
 % pwelch, to test the ouput of the gaussianSignal algorithm
 
-subplot(4,1,3);
-plot(psdf,magIn); 
+subplot(4, 1, 3);
+plot(psdf, magIn); 
 
-if strcmp(typeIn,'amplitude')
+if strcmp(typeIn, 'amplitude')
    title('Amplitude spectrum of the output TD signal estimated with pwelch')
    ylabel('asd')
-elseif strcmp(typeIn,'power')
+elseif strcmp(typeIn, 'power')
     title('Power spectrum of the output TD signal estimated with pwelch')
     ylabel('psd')
 end;
@@ -111,9 +111,9 @@ xlabel('frequency [Hz]')
 % Plot the distribution of values of TD signal to test for their Gaussian
 % distribution
 
-subplot(4,1,4);
+subplot(4, 1, 4);
 histogram(signal); 
-set(gca,'XLim',[-4,4]);
+set(gca, 'XLim', [-4, 4]);
 
 title('Distribution of TD signal values')
 xlabel('amplitude')

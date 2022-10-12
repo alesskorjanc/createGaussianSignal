@@ -1,6 +1,6 @@
-function [signalOut,timeOut,magOut,freqOut,typeIn]=gaussianSignal(typeIn,magIn,freqIn,duration,fs)
+function [signalOut, timeOut, magOut, freqOut,typeIn] = gaussianSignal(typeIn, magIn, freqIn, duration, fs)
 
-% [signalOut,timeOut,magOut,freqOut,typeIn]=gaussianSignal(typeIn,magIn,freqIn,duration,fs)
+% [signalOut, timeOut, magOut, freqOut, typeIn] = gaussianSignal(typeIn, magIn, freqIn, duration, fs)
 %
 % 
 % Function returns a time-domain (TD) signal with user-defined spectral
@@ -63,12 +63,12 @@ fN = fs/2; % Nyquist frequency
 dt = 1/fs; % time resolution of the signal in TD
 
 fftL = round(N/2); % length of the signal in FD at positive frequencies 
-df = fN / fftL; % frequency resolution in the FD 
+df = fN/fftL;      % frequency resolution in the FD 
 
 freqOut = 0:df:(fN-df); % positive frequencies in FD from 0 to fN in Hz 
 
 % user defined signal asd or psd interpolated to frequencies in freqOut
-magOut =  interp1(freqIn,magIn,freqOut); 
+magOut =  interp1(freqIn, magIn, freqOut); 
 
 % substitute NaN values, which interp1 returns for points lying outside the
 % frequency range defined by the user
@@ -77,9 +77,9 @@ magOut(isnan(magOut)) = 0;
 % if user defines asd, convert to power ()^2 and normalize, such that the
 % integral of psd over the frequency range 0 to fN Hz equals 1, giving TD
 % signal variance 1. If user defines psd, only normalize. 
-if strcmp(typeIn,'amplitude')
+if strcmp(typeIn, 'amplitude')
     fftP = magOut.^2/(sum(magOut.^2)*df);   
-elseif strcmp(typeIn,'power')
+elseif strcmp(typeIn, 'power')
     fftP = magOut/(sum(magOut)*df);
 end;
 
@@ -89,7 +89,7 @@ end;
 % take into account the doubling of the number of values in line 39.
 fftA = sqrt(fftP*df/2)*N; 
 
-phase = rand(1,fftL); % generate random phases of FD signal
+phase = rand(1, fftL); % generate random phases of FD signal
 
 % calculate complex FD signal with user defined asd or psd and random
 % phases
@@ -97,9 +97,9 @@ signalFD = fftA.*exp(1i*phase*2*pi());
 
 signalFDneg = fliplr(conj(signalFD)); % FD signal values at negative frequencies
 
-signalFD = [signalFD,signalFDneg]; % concatenate positive and negative frequencies
+signalFD = [signalFD, signalFDneg];    % concatenate positive and negative frequencies
 
-signalFD = [0,signalFD]; % add zero to the beginning of the complex signal
+signalFD = [0, signalFD]; % add zero to the beginning of the complex signal
 
 % calculate output TD signal from complex values of the signal in FD using
 % ifft
@@ -109,4 +109,4 @@ signalOut = ifft(signalFD);
 timeOut = 0:dt:dt*(length(signalOut)-1); 
 
 % plot the results
-plotGaussianSignal(signalOut,timeOut,magOut,freqOut,typeIn)
+plotGaussianSignal(signalOut, timeOut, magOut, freqOut, typeIn)
