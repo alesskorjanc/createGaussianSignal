@@ -86,7 +86,7 @@ end;
 % transform psd to asd, which is the input into the ifft algorithm. Factor
 % N comes from Parseval's theorem to ensure that the integral over the
 % power spectrum equals the energy of the signal. Factor 2 is needed to
-% take into account the doubling of the number of values in line 39.
+% take into account the doubling of the number of value, which is done below.
 fftA = sqrt(fftP*df/2)*N; 
 
 phase = rand(1, fftL)*2*pi(); % generate random phases of FD signal
