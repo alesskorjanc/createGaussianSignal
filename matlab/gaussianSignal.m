@@ -89,11 +89,11 @@ end;
 % take into account the doubling of the number of values in line 39.
 fftA = sqrt(fftP*df/2)*N; 
 
-phase = rand(1, fftL); % generate random phases of FD signal
+phase = rand(1, fftL)*2*pi(); % generate random phases of FD signal
 
 % calculate complex FD signal with user defined asd or psd and random
 % phases
-signalFD = fftA.*exp(1i*phase*2*pi()); 
+signalFD = fftA.*exp(1i*phase); 
 
 signalFDneg = fliplr(conj(signalFD)); % FD signal values at negative frequencies
 
